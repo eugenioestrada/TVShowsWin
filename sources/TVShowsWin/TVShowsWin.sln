@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{B400C600-26CA-45DF-B444-4149C5D7C8CD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "Services\Services.csproj", "{5A88C76F-0B50-46B0-9D7C-973A0518BDA3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TVShowsApp", "TVShowsApp\TVShowsApp.csproj", "{5B463B7B-BA0A-49D7-B625-8376F6D54542}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B400C600-26CA-45DF-B444-4149C5D7C8CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B400C600-26CA-45DF-B444-4149C5D7C8CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B400C600-26CA-45DF-B444-4149C5D7C8CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B400C600-26CA-45DF-B444-4149C5D7C8CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A88C76F-0B50-46B0-9D7C-973A0518BDA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A88C76F-0B50-46B0-9D7C-973A0518BDA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A88C76F-0B50-46B0-9D7C-973A0518BDA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A88C76F-0B50-46B0-9D7C-973A0518BDA3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B463B7B-BA0A-49D7-B625-8376F6D54542}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B463B7B-BA0A-49D7-B625-8376F6D54542}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B463B7B-BA0A-49D7-B625-8376F6D54542}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B463B7B-BA0A-49D7-B625-8376F6D54542}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
