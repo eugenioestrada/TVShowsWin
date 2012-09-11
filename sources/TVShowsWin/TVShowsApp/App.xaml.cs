@@ -4,7 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace TVShowsApp
+namespace TVShowsWin.TVShowsApp
 {
     using System.Windows;
 
