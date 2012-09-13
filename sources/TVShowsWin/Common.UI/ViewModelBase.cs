@@ -8,6 +8,7 @@ namespace TVShowsWin.Common.UI
 {
     using System.ComponentModel;
     using System.Runtime.CompilerServices;
+    using TVShowsWin.Common.Helpers;
 
     /// <summary>
     /// ViewModelBase Abstract Class
@@ -33,7 +34,10 @@ namespace TVShowsWin.Common.UI
             PropertyChangedEventHandler handler = this.PropertyChanged;
             if (handler != null)
             {
-                handler(this, new PropertyChangedEventArgs(propertyName));
+                DispatcherHelper.InvokeInDispatcher(() =>
+                {
+                    handler(this, new PropertyChangedEventArgs(propertyName));
+                });
             }
         }
 
@@ -46,7 +50,10 @@ namespace TVShowsWin.Common.UI
             PropertyChangingEventHandler handler = this.PropertyChanging;
             if (handler != null)
             {
-                handler(this, new PropertyChangingEventArgs(propertyName));
+                DispatcherHelper.InvokeInDispatcher(() =>
+                {
+                    handler(this, new PropertyChangingEventArgs(propertyName));
+                });
             }
         }
     }
