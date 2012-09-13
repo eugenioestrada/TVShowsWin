@@ -13,13 +13,13 @@ namespace TVShowsWin.Common.Helpers
     /// <summary>
     /// Help you using the UI Dispatcher
     /// </summary>
-    public class DispatcherHelper
+    public static class DispatcherHelper
     {
         /// <summary>
         /// Invokes the in dispatcher.
         /// </summary>
         /// <param name="action">The action.</param>
-        public void InvokeInDispatcher(Action action)
+        public static void InvokeInDispatcher(Action action)
         {
             if (Application.Current.Dispatcher.Thread != Thread.CurrentThread)
             {
