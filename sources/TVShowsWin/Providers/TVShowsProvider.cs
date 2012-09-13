@@ -26,7 +26,7 @@ namespace TVShowsWin.Providers
         /// <summary>
         /// The shows field
         /// </summary>
-        private IList<Show> shows = new List<Show>();
+        private IList<TVShowsShow> shows = new List<TVShowsShow>();
 
         /// <summary>
         /// The last update field
@@ -39,7 +39,7 @@ namespace TVShowsWin.Providers
         /// <returns>
         /// The shows.
         /// </returns>
-        public IList<Show> GetShows()
+        public IList<TVShowsShow> GetShows()
         {
             if ((DateTime.Now - this.lastUpdate).TotalMinutes > 60)
             {
@@ -49,7 +49,7 @@ namespace TVShowsWin.Providers
 
                 foreach (var element in xmlDocument.Descendants("show"))
                 {
-                    Show show = new Show();
+                    TVShowsShow show = new TVShowsShow();
                     show.Name = element.Element("name").Value;
                     show.TVDId = int.Parse(element.Element("tvdbid").Value);
                     show.Added = DateTime.ParseExact(
@@ -78,15 +78,15 @@ namespace TVShowsWin.Providers
         /// </summary>
         /// <param name="mirror">The mirror of the show.</param>
         /// <returns>The episodes of the show</returns>
-        public IList<Episode> GetEpisodes(string mirror)
+        public IList<TVShowsEpisode> GetEpisodes(string mirror)
         {
-            List<Episode> episodes = new List<Episode>();
+            List<TVShowsEpisode> episodes = new List<TVShowsEpisode>();
 
             XDocument xmlDocument = XDocument.Load(mirror);
 
             foreach (var element in xmlDocument.Descendants("item"))
             {
-                Episode episode = new Episode();
+                TVShowsEpisode episode = new TVShowsEpisode();
                 episode.Title = element.Element("title").Value;
                 episode.TorrentLink = element.Element("link").Value;
                 episode.MagnetLink = element.Element("guid").Value;

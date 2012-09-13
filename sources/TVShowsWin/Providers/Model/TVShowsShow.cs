@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="Show.cs" company="TVShowsWin">
+// <copyright file="TVShowsShow.cs" company="TVShowsWin">
 // GNU General Public License see http://www.gnu.org.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -12,7 +12,7 @@ namespace TVShowsWin.Providers.Model
     /// <summary>
     /// Model of a Show
     /// </summary>
-    public sealed class Show
+    public sealed class TVShowsShow
     {
         /// <summary>
         /// The name field

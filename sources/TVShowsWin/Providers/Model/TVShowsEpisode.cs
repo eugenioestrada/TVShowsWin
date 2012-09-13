@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="Episode.cs" company="TVShowsWin">
+// <copyright file="TVShowsEpisode.cs" company="TVShowsWin">
 // GNU General Public License see http://www.gnu.org.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -9,7 +9,7 @@ namespace TVShowsWin.Providers.Model
     /// <summary>
     /// Model of a Episode
     /// </summary>
-    public sealed class Episode
+    public sealed class TVShowsEpisode
     {
         /// <summary>
         /// The title field.

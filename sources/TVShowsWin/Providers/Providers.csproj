@@ -46,8 +46,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ITVShowsProvider.cs" />
-    <Compile Include="Model\Episode.cs" />
-    <Compile Include="Model\Show.cs" />
+    <Compile Include="Model\TVDBEpisode.cs" />
+    <Compile Include="Model\TVDBShow.cs" />
+    <Compile Include="Model\TVShowsEpisode.cs" />
+    <Compile Include="Model\TVShowsShow.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ShowsProvider.cs" />
     <Compile Include="TVShowsProvider.cs" />

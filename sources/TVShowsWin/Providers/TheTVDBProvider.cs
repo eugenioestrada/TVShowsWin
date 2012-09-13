@@ -14,12 +14,17 @@ namespace TVShowsWin.Providers
         /// <summary>
         /// The TVDB Api Key
         /// </summary>
-        public static readonly string ApiKey = "2AEC8D238223C926";
+        private static readonly string ApiKey = "2AEC8D238223C926";
 
         /// <summary>
         /// Template for the show feed
         /// </summary>
-        public static readonly string ShowFeed = "http://www.thetvdb.com/api/{0}/series/{1}/all/en.xml";
+        private static readonly string ShowFeed = "http://www.thetvdb.com/api/{0}/series/{1}/all/en.xml";
+
+        /// <summary>
+        /// The banners cache template
+        /// </summary>
+        private static readonly string BannersCache = "http://thetvdb.com/banners/{0}";
 
         /// <summary>
         /// Gets the show feed.
@@ -29,6 +34,16 @@ namespace TVShowsWin.Providers
         private string GetShowFeed(int showId)
         {
             return string.Format(ShowFeed, ApiKey, showId);
+        }
+
+        /// <summary>
+        /// Gets the banner URL.
+        /// </summary>
+        /// <param name="bannerName">Name of the banner.</param>
+        /// <returns>The banner url</returns>
+        private string GetBannerUrl(string bannerName)
+        {
+            return string.Format(BannersCache, bannerName);
         }
     }
 }
