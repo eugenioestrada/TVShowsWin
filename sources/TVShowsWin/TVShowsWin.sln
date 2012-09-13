@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TVShowsApp", "TVShowsApp\TV
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.UI", "Common.UI\Common.UI.csproj", "{BD7E1A13-A52D-4419-8BB2-36F42F722DA1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Providers", "Providers\Providers.csproj", "{C1091A7C-B76A-48FE-BFBA-9D787DAA1D43}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +33,10 @@ Global
 		{BD7E1A13-A52D-4419-8BB2-36F42F722DA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BD7E1A13-A52D-4419-8BB2-36F42F722DA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BD7E1A13-A52D-4419-8BB2-36F42F722DA1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C1091A7C-B76A-48FE-BFBA-9D787DAA1D43}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1091A7C-B76A-48FE-BFBA-9D787DAA1D43}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1091A7C-B76A-48FE-BFBA-9D787DAA1D43}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1091A7C-B76A-48FE-BFBA-9D787DAA1D43}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
