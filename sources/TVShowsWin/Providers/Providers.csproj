@@ -45,10 +45,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IShowsProvider.cs" />
+    <Compile Include="ITVShowsProvider.cs" />
     <Compile Include="Model\Show.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ShowsProvider.cs" />
+    <Compile Include="TVShowsProvider.cs" />
     <Compile Include="TheTVDBProvider.cs" />
   </ItemGroup>
   <ItemGroup />

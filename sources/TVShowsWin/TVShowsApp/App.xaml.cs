@@ -42,7 +42,7 @@ namespace TVShowsWin.TVShowsApp
         /// <param name="e">The <see cref="StartupEventArgs" /> instance containing the event data.</param>
         private void App_Startup(object sender, StartupEventArgs e)
         {
-            ShowsProvider showsProvider = new ShowsProvider();
+            TVShowsProvider showsProvider = new TVShowsProvider();
             var shows = showsProvider.GetShows();
             var shows2 = showsProvider.GetShows();
 
