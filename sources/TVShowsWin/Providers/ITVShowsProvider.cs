@@ -19,5 +19,12 @@ namespace TVShowsWin.Providers
         /// </summary>
         /// <returns>The shows.</returns>
         IList<Show> GetShows();
+
+        /// <summary>
+        /// Gets the episodes of a show.
+        /// </summary>
+        /// <param name="mirror">The mirror of the show.</param>
+        /// <returns>The episodes of the show</returns>
+        IList<Episode> GetEpisodes(string mirror);
     }
 }

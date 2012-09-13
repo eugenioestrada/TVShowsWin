@@ -72,5 +72,28 @@ namespace TVShowsWin.Providers
 
             return this.shows;
         }
+
+        /// <summary>
+        /// Gets the episodes of a show.
+        /// </summary>
+        /// <param name="mirror">The mirror of the show.</param>
+        /// <returns>The episodes of the show</returns>
+        public IList<Episode> GetEpisodes(string mirror)
+        {
+            List<Episode> episodes = new List<Episode>();
+
+            XDocument xmlDocument = XDocument.Load(mirror);
+
+            foreach (var element in xmlDocument.Descendants("item"))
+            {
+                Episode episode = new Episode();
+                episode.Title = element.Element("title").Value;
+                episode.TorrentLink = element.Element("link").Value;
+                episode.MagnetLink = element.Element("guid").Value;
+                episodes.Add(episode);
+            }
+
+            return episodes;
+        }
     }
 }
