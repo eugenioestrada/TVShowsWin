@@ -122,6 +122,10 @@
       <Project>{b400c600-26ca-45df-b444-4149c5d7c8cd}</Project>
       <Name>Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Providers\Providers.csproj">
+      <Project>{c1091a7c-b76a-48fe-bfba-9d787daa1d43}</Project>
+      <Name>Providers</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Services\Services.csproj">
       <Project>{5a88c76f-0b50-46b0-9d7c-973a0518bda3}</Project>
       <Name>Services</Name>

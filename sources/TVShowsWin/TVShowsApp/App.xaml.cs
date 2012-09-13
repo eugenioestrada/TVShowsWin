@@ -11,6 +11,7 @@ namespace TVShowsWin.TVShowsApp
     using System.Reactive;
     using System.Reactive.Linq;
     using System.Windows;
+    using TVShowsWin.Providers;
     using TVShowsWin.Services;
     using TVShowsWin.Services.Messages;
     using TVShowsWin.Services.Messenger;
@@ -41,6 +42,10 @@ namespace TVShowsWin.TVShowsApp
         /// <param name="e">The <see cref="StartupEventArgs" /> instance containing the event data.</param>
         private void App_Startup(object sender, StartupEventArgs e)
         {
+            ShowsProvider showsProvider = new ShowsProvider();
+            var shows = showsProvider.GetShows();
+            var shows2 = showsProvider.GetShows();
+
             // this.services.Add();
             var messenger = new MessengerService();
             messenger.Start();

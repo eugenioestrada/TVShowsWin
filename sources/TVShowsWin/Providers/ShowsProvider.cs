@@ -54,8 +54,8 @@ namespace TVShowsWin.Providers
                     show.TVDId = int.Parse(element.Element("tvdbid").Value);
                     show.Added = DateTime.ParseExact(
                                     element.Element("added").Value,
-                                    "ddd MMM d HH:mm:ss UTCzzzzz yyyy",
-                                    CultureInfo.InvariantCulture);
+                                    "ddd MMM d HH:mm:ss zzzzz yyyy",
+                                    new CultureInfo("en-US"));
 
                     IEnumerable<XElement> mirrors = element.Descendants("mirror");
 

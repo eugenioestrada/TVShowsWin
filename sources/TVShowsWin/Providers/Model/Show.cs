@@ -32,7 +32,7 @@ namespace TVShowsWin.Providers.Model
         /// <summary>
         /// The list of mirrors field
         /// </summary>
-        private IList<Uri> mirrors;
+        private IList<Uri> mirrors = new List<Uri>();
 
         /// <summary>
         /// Gets or sets the name.
