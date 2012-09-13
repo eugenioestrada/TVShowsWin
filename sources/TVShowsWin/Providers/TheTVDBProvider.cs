@@ -6,6 +6,10 @@
 
 namespace TVShowsWin.Providers
 {
+    using System.Linq;
+    using System.Xml.Linq;
+    using TVShowsWin.Providers.Model;
+
     /// <summary>
     /// The TVDB Provider
     /// </summary>
@@ -25,6 +29,20 @@ namespace TVShowsWin.Providers
         /// The banners cache template
         /// </summary>
         private static readonly string BannersCache = "http://thetvdb.com/banners/{0}";
+
+        /// <summary>
+        /// Gets the show.
+        /// </summary>
+        /// <param name="showId">The show id.</param>
+        /// <returns>The show</returns>
+        public TVDBShow GetShow(int showId)
+        {
+            string feed = this.GetShowFeed(showId);
+            XDocument feedDocument = XDocument.Load(feed);
+            TVDBShow show = new TVDBShow();
+            show.Poster = this.GetBannerUrl(feedDocument.Descendants("poster").FirstOrDefault().Value);
+            return show;
+        }
 
         /// <summary>
         /// Gets the show feed.

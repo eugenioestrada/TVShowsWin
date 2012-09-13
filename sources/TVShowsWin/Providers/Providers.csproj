@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ITVShowsProvider.cs" />
+    <Compile Include="Model\Show.cs" />
     <Compile Include="Model\TVDBEpisode.cs" />
     <Compile Include="Model\TVDBShow.cs" />
     <Compile Include="Model\TVShowsEpisode.cs" />

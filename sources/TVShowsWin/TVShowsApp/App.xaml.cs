@@ -42,22 +42,6 @@ namespace TVShowsWin.TVShowsApp
         /// <param name="e">The <see cref="StartupEventArgs" /> instance containing the event data.</param>
         private void App_Startup(object sender, StartupEventArgs e)
         {
-            TVShowsProvider showsProvider = new TVShowsProvider();
-            var shows = showsProvider.GetShows();
-            var shows2 = showsProvider.GetShows();
-
-            // this.services.Add();
-            MessengerService.Current.Subscribe<NewShowMessage>(newShowMessage =>
-            {
-                MessageBox.Show("New Show desde App");
-            });
-            MessengerService.Current.Publish(new NewShowMessage());
-
-            // foreach (IService service in services)
-            // {
-            //     service.Start();
-
-            // }
         }
     }
 }
