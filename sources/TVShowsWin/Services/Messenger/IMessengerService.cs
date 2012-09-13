@@ -16,11 +16,17 @@ namespace TVShowsWin.Services.Messenger
     public interface IMessengerService
     {
         /// <summary>
-        /// Gets the messages.
+        /// Subscribes the specified message.
         /// </summary>
-        /// <value>
-        /// The messages.
-        /// </value>
-        ISubject<MessageBase> Messages { get; }
+        /// <typeparam name="TMessage">The type of the message.</typeparam>
+        /// <param name="callback">The callback.</param>
+        void Subscribe<TMessage>(Action<TMessage> callback) where TMessage : MessageBase;
+
+        /// <summary>
+        /// Publishes the specified message.
+        /// </summary>
+        /// <typeparam name="TMessage">The type of the message.</typeparam>
+        /// <param name="message">The message.</param>
+        void Publish<TMessage>(TMessage message) where TMessage : MessageBase;
     }
 }

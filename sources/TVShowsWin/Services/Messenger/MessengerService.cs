@@ -30,17 +30,30 @@ namespace TVShowsWin.Services.Messenger
         }
 
         /// <summary>
-        /// Gets the messages.
+        /// Subscribes the specified message.
         /// </summary>
-        /// <value>
-        /// The messages.
-        /// </value>
-        public ISubject<MessageBase> Messages
+        /// <typeparam name="TMessage">The type of the message.</typeparam>
+        /// <param name="callback">The callback.</param>
+        public void Subscribe<TMessage>(Action<TMessage> callback) where TMessage : MessageBase
         {
-            get
+            this.messages.Subscribe(m =>
             {
-                return this.messages;
-            }
+                TMessage message = m as TMessage;
+                if (message != null)
+                {
+                    callback(message);
+                }
+            });
+        }
+
+        /// <summary>
+        /// Publishes the specified message.
+        /// </summary>
+        /// <typeparam name="TMessage">The type of the message.</typeparam>
+        /// <param name="message">The message.</param>
+        public void Publish<TMessage>(TMessage message) where TMessage : MessageBase
+        {
+            this.messages.OnNext(message);
         }
 
         /// <summary>

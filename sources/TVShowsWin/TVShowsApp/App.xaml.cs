@@ -26,11 +26,6 @@ namespace TVShowsWin.TVShowsApp
         private readonly IList<IService> services;
 
         /// <summary>
-        /// Subscription of the observer
-        /// </summary>
-        private IDisposable subscription;
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="App" /> class.
         /// </summary>
         public App()
@@ -49,11 +44,11 @@ namespace TVShowsWin.TVShowsApp
             // this.services.Add();
             var messenger = new MessengerService();
             messenger.Start();
-            this.subscription = messenger.Messages.Subscribe<NewShowMessage>(newShowMessage =>
+            messenger.Subscribe<NewShowMessage>(newShowMessage =>
             {
                 MessageBox.Show("New Show");
             });
-            messenger.Messages.OnNext(new NewShowMessage());
+            messenger.Publish(new NewShowMessage());
 
             // foreach (IService service in services)
             // {
