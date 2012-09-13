@@ -17,16 +17,35 @@ namespace TVShowsWin.Services.Messenger
     public sealed class MessengerService : IService, IMessengerService, IDisposable
     {
         /// <summary>
+        /// The current Messenger Service
+        /// </summary>
+        private static MessengerService messengerService = new MessengerService();
+
+        /// <summary>
         /// The messages
         /// </summary>
         private readonly ISubject<MessageBase> messages;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="MessengerService" /> class.
+        /// Prevents a default instance of the <see cref="MessengerService" /> class from being created.
         /// </summary>
-        public MessengerService()
+        private MessengerService()
         {
             this.messages = new Subject<MessageBase>();
+        }
+
+        /// <summary>
+        /// Gets the current.
+        /// </summary>
+        /// <value>
+        /// The current.
+        /// </value>
+        public static MessengerService Current
+        {
+            get
+            {
+                return messengerService;
+            }
         }
 
         /// <summary>
@@ -34,9 +53,12 @@ namespace TVShowsWin.Services.Messenger
         /// </summary>
         /// <typeparam name="TMessage">The type of the message.</typeparam>
         /// <param name="callback">The callback.</param>
-        public void Subscribe<TMessage>(Action<TMessage> callback) where TMessage : MessageBase
+        /// <returns>
+        /// The subscription
+        /// </returns>
+        public IDisposable Subscribe<TMessage>(Action<TMessage> callback) where TMessage : MessageBase
         {
-            this.messages.Subscribe(m =>
+            return this.messages.Subscribe(m =>
             {
                 TMessage message = m as TMessage;
                 if (message != null)

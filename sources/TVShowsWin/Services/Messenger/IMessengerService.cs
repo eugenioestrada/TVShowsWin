@@ -20,7 +20,8 @@ namespace TVShowsWin.Services.Messenger
         /// </summary>
         /// <typeparam name="TMessage">The type of the message.</typeparam>
         /// <param name="callback">The callback.</param>
-        void Subscribe<TMessage>(Action<TMessage> callback) where TMessage : MessageBase;
+        /// <returns>The subscription</returns>
+        IDisposable Subscribe<TMessage>(Action<TMessage> callback) where TMessage : MessageBase;
 
         /// <summary>
         /// Publishes the specified message.

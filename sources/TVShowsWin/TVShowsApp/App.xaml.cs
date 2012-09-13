@@ -47,13 +47,11 @@ namespace TVShowsWin.TVShowsApp
             var shows2 = showsProvider.GetShows();
 
             // this.services.Add();
-            var messenger = new MessengerService();
-            messenger.Start();
-            messenger.Subscribe<NewShowMessage>(newShowMessage =>
+            MessengerService.Current.Subscribe<NewShowMessage>(newShowMessage =>
             {
-                MessageBox.Show("New Show");
+                MessageBox.Show("New Show desde App");
             });
-            messenger.Publish(new NewShowMessage());
+            MessengerService.Current.Publish(new NewShowMessage());
 
             // foreach (IService service in services)
             // {
