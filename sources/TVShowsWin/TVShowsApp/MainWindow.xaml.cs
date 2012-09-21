@@ -6,6 +6,7 @@
 
 namespace TVShowsWin.TVShowsApp
 {
+    using System;
     using System.Windows;
 
     /// <summary>
