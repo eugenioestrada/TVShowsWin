@@ -6,10 +6,12 @@
 
 namespace TVShowsWin.Services
 {
+    using System;
+
     /// <summary>
     /// Interface of a Service
     /// </summary>
-    public interface IService
+    public interface IService : IDisposable
     {
         /// <summary>
         /// Starts this service.

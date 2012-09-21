@@ -14,7 +14,7 @@ namespace TVShowsWin.Services.Messenger
     /// <summary>
     /// Implementation of the Messenger Service
     /// </summary>
-    public sealed class MessengerService : IService, IMessengerService, IDisposable
+    public sealed class MessengerService : IMessengerService
     {
         /// <summary>
         /// The current Messenger Service

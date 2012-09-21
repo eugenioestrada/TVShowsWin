@@ -13,7 +13,7 @@ namespace TVShowsWin.Services.Messenger
     /// <summary>
     /// Interface of the Messenger Service
     /// </summary>
-    public interface IMessengerService
+    public interface IMessengerService : IService
     {
         /// <summary>
         /// Subscribes the specified message.
