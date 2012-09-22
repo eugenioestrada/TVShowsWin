@@ -21,13 +21,16 @@ namespace TVShowsWin.Common.Helpers
         /// <param name="action">The action.</param>
         public static void InvokeInDispatcher(Action action)
         {
-            if (Application.Current.Dispatcher.Thread != Thread.CurrentThread)
+            if (Application.Current != null)
             {
-                Application.Current.Dispatcher.BeginInvoke(action);
-            }
-            else
-            {
-                action();
+                if (Application.Current.Dispatcher.Thread != Thread.CurrentThread)
+                {
+                    Application.Current.Dispatcher.BeginInvoke(action);
+                }
+                else
+                {
+                    action();
+                }
             }
         }
     }

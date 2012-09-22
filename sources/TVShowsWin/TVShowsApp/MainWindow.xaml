@@ -18,21 +18,19 @@
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <TextBlock FontFamily="Segoe UI Light" Grid.Column="1" Grid.Row="1" FontSize="48">TVShowsWin</TextBlock>
-        <ScrollViewer Grid.Column="1" Grid.Row="2" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Disabled">
-            <ItemsControl ItemsSource="{Binding Shows}">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <StackPanel Orientation="Horizontal" ScrollViewer.HorizontalScrollBarVisibility="Visible" />
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Border Background="#FFFFFF66">
-                            <Image Margin="10" Height="500" Stretch="UniformToFill" Source="{Binding TVDBShow.Poster}" />
-                        </Border>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </ScrollViewer>
+        <ListBox ItemsSource="{Binding Shows}" Grid.Column="1" Grid.Row="2" >
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <VirtualizingStackPanel MouseWheel="VirtualizingStackPanel_MouseWheel_1" Orientation="Horizontal" ScrollViewer.HorizontalScrollBarVisibility="Visible" />
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Border Background="#FFFFFF66">
+                        <Image Margin="10" Height="500" Stretch="UniformToFill" Source="{Binding TVDBShow.Poster}" />
+                    </Border>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
     </Grid>
 </Window>

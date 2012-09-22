@@ -10,6 +10,7 @@ namespace TVShowsWin.Providers
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+    using TVShowsWin.Common;
     using TVShowsWin.Common.Cache.Generic;
     using TVShowsWin.Providers.Model;
 
@@ -59,12 +60,21 @@ namespace TVShowsWin.Providers
                 if (this.showsCache.Contains(tvshow.TVDId))
                 {
                     show = this.showsCache.Get(tvshow.TVDId);
+                    if (show.TVDBShow != null)
+                    {
+                        Uri uri = new Uri(show.TVDBShow.Poster);
+                        if (uri.Scheme.Contains("http"))
+                        {
+                            show.TVDBShow.Poster = await ImageCache.Current.GetImage(uri);
+                        }
+                    }
                 }
                 else
                 {
                     show = new Show();
                     show.TVShowsShow = tvshow;
                     show.TVDBShow = await tvdbProvider.GetShow(tvshow.TVDId);
+
                     this.showsCache.AddOrUpdate(show);
                 }
 

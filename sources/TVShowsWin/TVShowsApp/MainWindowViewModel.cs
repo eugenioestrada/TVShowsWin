@@ -49,8 +49,11 @@ namespace TVShowsWin.TVShowsApp
         /// </summary>
         public MainWindowViewModel()
         {
-            this.Shows = new ObservableCollection<Show>();
-            this.GetNextPage();
+            if (!DesignerHelper.IsInDesignMode)
+            {
+                this.Shows = new ObservableCollection<Show>();
+                this.GetNextPage();
+            }
         }
 
         /// <summary>

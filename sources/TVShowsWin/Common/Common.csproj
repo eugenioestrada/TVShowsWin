@@ -37,6 +37,7 @@
     <StyleCopTreatErrorsAsWarnings>false</StyleCopTreatErrorsAsWarnings>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -63,8 +64,10 @@
   <ItemGroup>
     <Compile Include="Cache\Generic\Cache.cs" />
     <Compile Include="Extensions\AsyncExtensions.cs" />
+    <Compile Include="Helpers\DesignerHelper.cs" />
     <Compile Include="Helpers\DispatcherHelper.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="ImageCache.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

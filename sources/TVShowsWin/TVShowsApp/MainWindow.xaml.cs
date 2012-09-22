@@ -8,6 +8,7 @@ namespace TVShowsWin.TVShowsApp
 {
     using System;
     using System.Windows;
+    using System.Windows.Controls;
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -29,6 +30,17 @@ namespace TVShowsWin.TVShowsApp
         /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
+        }
+
+        /// <summary>
+        /// Handles the 1 event of the VirtualizingStackPanel_MouseWheel control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.Windows.Input.MouseWheelEventArgs" /> instance containing the event data.</param>
+        private void VirtualizingStackPanel_MouseWheel_1(object sender, System.Windows.Input.MouseWheelEventArgs e)
+        {
+            VirtualizingStackPanel virtualizingStackPanel = sender as VirtualizingStackPanel;
+            virtualizingStackPanel.ScrollOwner.ScrollToHorizontalOffset(virtualizingStackPanel.ScrollOwner.HorizontalOffset + (e.Delta * 0.01));
         }
     }
 }
