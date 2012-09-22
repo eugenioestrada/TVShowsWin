@@ -28,7 +28,7 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Border Background="#FFFFFF66">
-                            <Image Margin="10" Height="500" Stretch="UniformToFill" />
+                            <Image Margin="10" Height="500" Stretch="UniformToFill" commonUI:ImageCache.CacheSource="{Binding TVDBShow.Poster}" />
                         </Border>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>

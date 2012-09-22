@@ -22,7 +22,7 @@ namespace TVShowsWin.Common.UI
     /// <summary>
     /// The Image Cache
     /// </summary>
-    public class ImageCache
+    public class ImageCache : ContentControl
     {
         /// <summary>
         /// The Source Attached Property
@@ -30,14 +30,36 @@ namespace TVShowsWin.Common.UI
         public static readonly DependencyProperty CacheSourceProperty
             = DependencyProperty.RegisterAttached(
                 "CacheSource",
-                typeof(Uri),
-                typeof(Image),
-                new FrameworkPropertyMetadata(null, OnCacheSourceChanged));
+                typeof(string),
+                typeof(ImageCache),
+                new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.Inherits, OnCacheSourceChanged));
 
         /// <summary>
         /// The Current Image Cache
         /// </summary>
         private static readonly ImageCache Current = new ImageCache();
+
+        /// <summary>
+        /// Sets the cache source.
+        /// </summary>
+        /// <param name="element">The element.</param>
+        /// <param name="value">The value.</param>
+        [AttachedPropertyBrowsableForChildren]
+        public static void SetCacheSource(UIElement element, Uri value)
+        {
+            element.SetValue(CacheSourceProperty, value);
+        }
+
+        /// <summary>
+        /// Gets the cache source.
+        /// </summary>
+        /// <param name="element">The element.</param>
+        /// <returns>The cached source</returns>
+        [AttachedPropertyBrowsableForChildren]
+        public static Uri GetCacheSource(UIElement element)
+        {
+            return (Uri)element.GetValue(CacheSourceProperty);
+        }
 
         /// <summary>
         /// Gets the image.
@@ -101,6 +123,17 @@ namespace TVShowsWin.Common.UI
                 Task.Factory.StartNew(() =>
                 {
                     var uri = args.NewValue as Uri;
+
+                    if (uri == null)
+                    {
+                        string url = args.NewValue as string;
+
+                        if (!string.IsNullOrEmpty(url))
+                        {
+                            Uri.TryCreate(url, UriKind.Absolute, out uri);
+                        }
+                    }
+
                     if (uri != null)
                     {
                         var source = Current.GetImage(uri);
@@ -120,7 +153,22 @@ namespace TVShowsWin.Common.UI
         /// <returns>The Stream</returns>
         private IsolatedStorageFileStream GetFileStream(string fileName)
         {
-            return new IsolatedStorageFileStream("images\\" + fileName, FileMode.OpenOrCreate);
+            string filePath = "images\\" + fileName;
+
+            IsolatedStorageFile store = IsolatedStorageFile.GetUserStoreForAssembly();
+            if (!store.DirectoryExists("images"))
+            {
+                store.CreateDirectory("images");
+            }
+
+            if (store.FileExists(filePath))
+            {
+                return store.OpenFile(filePath, FileMode.Open);
+            }
+            else
+            {
+                return store.CreateFile(filePath);
+            }
         }
 
         /// <summary>
