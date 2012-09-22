@@ -7,7 +7,9 @@
 namespace TVShowsWin.Providers
 {
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Xml.Linq;
+    using TVShowsWin.Common.Extensions;
     using TVShowsWin.Providers.Model;
 
     /// <summary>
@@ -35,10 +37,11 @@ namespace TVShowsWin.Providers
         /// </summary>
         /// <param name="showId">The show id.</param>
         /// <returns>The show</returns>
-        public TVDBShow GetShow(int showId)
+        public async Task<TVDBShow> GetShow(int showId)
         {
             string feed = this.GetShowFeed(showId);
-            XDocument feedDocument = XDocument.Load(feed);
+            XDocument feedDocument = await feed.ToUri().GetXDocument();
+
             TVDBShow show = new TVDBShow();
             show.Poster = this.GetBannerUrl(feedDocument.Descendants("poster").FirstOrDefault().Value);
             return show;

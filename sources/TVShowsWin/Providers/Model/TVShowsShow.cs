@@ -12,6 +12,7 @@ namespace TVShowsWin.Providers.Model
     /// <summary>
     /// Model of a Show
     /// </summary>
+    [Serializable]
     public sealed class TVShowsShow
     {
         /// <summary>

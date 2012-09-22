@@ -6,9 +6,12 @@
 
 namespace TVShowsWin.Providers.Model
 {
+    using System;
+
     /// <summary>
     /// Model of a Episode
     /// </summary>
+    [Serializable]
     public sealed class TVShowsEpisode
     {
         /// <summary>

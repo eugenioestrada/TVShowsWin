@@ -10,6 +10,7 @@ namespace TVShowsWin.Common.Cache.Generic
     using System.Collections.Generic;
     using System.IO;
     using System.IO.IsolatedStorage;
+    using System.Linq;
     using System.Runtime.Serialization;
     using System.Runtime.Serialization.Formatters.Binary;
 
@@ -36,6 +37,11 @@ namespace TVShowsWin.Common.Cache.Generic
         private readonly Guid cacheId;
 
         /// <summary>
+        /// The last modification
+        /// </summary>
+        private DateTime timestamp;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="Cache{TValue,TKey}" /> class.
         /// </summary>
         /// <param name="keySelector">The key selector.</param>
@@ -46,11 +52,11 @@ namespace TVShowsWin.Common.Cache.Generic
             this.cacheId = cacheId;
             IFormatter formatter = new BinaryFormatter();
 
-            using (IsolatedStorageFileStream stream = new IsolatedStorageFileStream(cacheId.ToString(), FileMode.OpenOrCreate))
+            using (IsolatedStorageFileStream valuesStream = new IsolatedStorageFileStream(cacheId.ToString(), FileMode.OpenOrCreate))
             {
-                if (stream.Length > 0)
+                if (valuesStream.Length > 0)
                 {
-                    Dictionary<TKey, TValue> valuesByKey = formatter.Deserialize(stream) as Dictionary<TKey, TValue>;
+                    Dictionary<TKey, TValue> valuesByKey = formatter.Deserialize(valuesStream) as Dictionary<TKey, TValue>;
                     if (valuesByKey != null)
                     {
                         this.valuesByKey = valuesByKey;
@@ -58,9 +64,53 @@ namespace TVShowsWin.Common.Cache.Generic
                 }
             }
 
+            using (IsolatedStorageFileStream timestampStream = new IsolatedStorageFileStream(cacheId.ToString() + "t", FileMode.OpenOrCreate))
+            {
+                if (timestampStream.Length > 0)
+                {
+                    DateTime? timestamp = formatter.Deserialize(timestampStream) as DateTime?;
+                    if (timestamp.HasValue)
+                    {
+                        this.timestamp = timestamp.Value;
+                    }
+                    else
+                    {
+                        this.timestamp = DateTime.MinValue;
+                    }
+                }
+            }
+
             if (this.valuesByKey == null)
             {
                 this.valuesByKey = new Dictionary<TKey, TValue>();
+            }
+        }
+
+        /// <summary>
+        /// Gets the items.
+        /// </summary>
+        /// <value>
+        /// The items.
+        /// </value>
+        public IList<TValue> Items
+        {
+            get
+            {
+                return this.valuesByKey.Values.ToList();
+            }
+        }
+
+        /// <summary>
+        /// Gets the timestamp.
+        /// </summary>
+        /// <value>
+        /// The timestamp.
+        /// </value>
+        public DateTime Timestamp
+        {
+            get
+            {
+                return this.timestamp;
             }
         }
 
@@ -87,6 +137,7 @@ namespace TVShowsWin.Common.Cache.Generic
         public void AddOrUpdate(TValue item)
         {
             TKey key = this.keySelector(item);
+
             if (this.valuesByKey.ContainsKey(key))
             {
                 this.valuesByKey[key] = item;
@@ -95,6 +146,16 @@ namespace TVShowsWin.Common.Cache.Generic
             {
                 this.valuesByKey.Add(key, item);
             }
+
+            this.timestamp = DateTime.Now;
+        }
+
+        /// <summary>
+        /// Updates the timestamp.
+        /// </summary>
+        public void UpdateTimestamp()
+        {
+            this.timestamp = DateTime.Now;
         }
 
         /// <summary>
@@ -130,6 +191,7 @@ namespace TVShowsWin.Common.Cache.Generic
         public void Invalidate()
         {
             this.valuesByKey.Clear();
+            this.timestamp = DateTime.MinValue;
             this.Save();
         }
 
@@ -139,9 +201,13 @@ namespace TVShowsWin.Common.Cache.Generic
         public void Save()
         {
             IFormatter formatter = new BinaryFormatter();
-            IsolatedStorageFileStream stream = new IsolatedStorageFileStream(this.cacheId.ToString(), FileMode.OpenOrCreate);
-            formatter.Serialize(stream, this.valuesByKey);
-            stream.Close();
+            IsolatedStorageFileStream valuesStream = new IsolatedStorageFileStream(this.cacheId.ToString(), FileMode.OpenOrCreate);
+            formatter.Serialize(valuesStream, this.valuesByKey);
+            valuesStream.Close();
+
+            IsolatedStorageFileStream timestampStream = new IsolatedStorageFileStream(this.cacheId.ToString() + "t", FileMode.OpenOrCreate);
+            formatter.Serialize(timestampStream, this.timestamp);
+            timestampStream.Close();
         }
     }
 }

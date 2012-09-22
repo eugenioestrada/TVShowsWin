@@ -7,6 +7,7 @@
 namespace TVShowsWin.Providers
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using TVShowsWin.Providers.Model;
 
     /// <summary>
@@ -17,14 +18,18 @@ namespace TVShowsWin.Providers
         /// <summary>
         /// Gets the shows.
         /// </summary>
-        /// <returns>The shows.</returns>
-        IList<TVShowsShow> GetShows();
+        /// <param name="max">The max.</param>
+        /// <param name="page">The page.</param>
+        /// <returns>
+        /// The shows.
+        /// </returns>
+        Task<IList<TVShowsShow>> GetShows(int max, int page);
 
         /// <summary>
         /// Gets the episodes of a show.
         /// </summary>
         /// <param name="mirror">The mirror of the show.</param>
         /// <returns>The episodes of the show</returns>
-        IList<TVShowsEpisode> GetEpisodes(string mirror);
+        Task<IList<TVShowsEpisode>> GetEpisodes(string mirror);
     }
 }

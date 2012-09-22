@@ -20,6 +20,11 @@ namespace TVShowsWin.TVShowsApp
     public sealed class MainWindowViewModel : ViewModelBase
     {
         /// <summary>
+        /// Size of Page
+        /// </summary>
+        private const int PageSize = 10;
+
+        /// <summary>
         /// The Shows field
         /// </summary>
         private ObservableCollection<Show> shows;
@@ -30,18 +35,22 @@ namespace TVShowsWin.TVShowsApp
         private ShowsProvider showsProvider = new ShowsProvider();
 
         /// <summary>
+        /// The Current Page field
+        /// </summary>
+        private int currentPage = 0;
+
+        /// <summary>
+        /// Download of all shows completed field
+        /// </summary>
+        private bool downloadCompleted = false;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="MainWindowViewModel" /> class.
         /// </summary>
         public MainWindowViewModel()
         {
-            Task.Factory.StartNew(() =>
-            {
-                var shows = this.showsProvider.GetShows();
-                DispatcherHelper.InvokeInDispatcher(() =>
-                {
-                    this.Shows = new ObservableCollection<Show>(shows);
-                });
-            });
+            this.Shows = new ObservableCollection<Show>();
+            this.GetNextPage();
         }
 
         /// <summary>
@@ -63,6 +72,38 @@ namespace TVShowsWin.TVShowsApp
                 this.shows = value;
                 this.OnPropertyChanged();
             }
+        }
+
+        /// <summary>
+        /// Gets the next page.
+        /// </summary>
+        private void GetNextPage()
+        {
+            var task = this.showsProvider.GetShows(PageSize, this.currentPage);
+            task.ContinueWith(t =>
+            {
+                var shows = t.Result;
+                if (shows.Count > 0)
+                {
+                    DispatcherHelper.InvokeInDispatcher(() =>
+                    {
+                        foreach (var show in shows)
+                        {
+                            this.Shows.Add(show);
+                        }
+                    });
+                }
+                else
+                {
+                    this.downloadCompleted = true;
+                }
+
+                if (!this.downloadCompleted)
+                {
+                    this.currentPage++;
+                    this.GetNextPage();
+                }
+            });
         }
     }
 }

@@ -10,7 +10,10 @@ namespace TVShowsWin.Providers
     using System.Collections.Generic;
     using System.Globalization;
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Xml.Linq;
+    using TVShowsWin.Common.Cache.Generic;
+    using TVShowsWin.Common.Extensions;
     using TVShowsWin.Providers.Model;
 
     /// <summary>
@@ -24,28 +27,38 @@ namespace TVShowsWin.Providers
         private static readonly string ShowListFeed = "http://tvshowsapp.com/showlist/showlist.xml";
 
         /// <summary>
-        /// The shows field
+        /// The Cache ID
         /// </summary>
-        private IList<TVShowsShow> shows = new List<TVShowsShow>();
+        private static readonly Guid CacheId = Guid.Parse("57051126-7898-4741-8648-79D7561A327C");
 
         /// <summary>
-        /// The last update field
+        /// The shows field
         /// </summary>
-        private DateTime lastUpdate = DateTime.MinValue;
+        private Cache<TVShowsShow, int> shows;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TVShowsProvider" /> class.
+        /// </summary>
+        public TVShowsProvider()
+        {
+            this.shows = new Cache<TVShowsShow, int>(show => show.TVDId, CacheId);
+        }
 
         /// <summary>
         /// Gets the shows.
         /// </summary>
+        /// <param name="max">The max.</param>
+        /// <param name="page">The page.</param>
         /// <returns>
         /// The shows.
         /// </returns>
-        public IList<TVShowsShow> GetShows()
+        public async Task<IList<TVShowsShow>> GetShows(int max = int.MaxValue, int page = 0)
         {
-            if ((DateTime.Now - this.lastUpdate).TotalMinutes > 60)
+            if ((DateTime.Now - this.shows.Timestamp).TotalMinutes > 60)
             {
-                XDocument xmlDocument = XDocument.Load(ShowListFeed);
+                XDocument xmlDocument = await ShowListFeed.ToUri().GetXDocument();
 
-                this.shows.Clear();
+                this.shows.Invalidate();
 
                 foreach (var element in xmlDocument.Descendants("show"))
                 {
@@ -64,13 +77,13 @@ namespace TVShowsWin.Providers
                         show.Mirrors.Add(new Uri(mirror.Value));
                     }
 
-                    this.shows.Add(show);
+                    this.shows.AddOrUpdate(show);
                 }
 
-                this.lastUpdate = DateTime.Now;
+                this.shows.Save();
             }
 
-            return this.shows;
+            return this.shows.Items.Skip(max * page).Take(max).ToList();
         }
 
         /// <summary>
@@ -78,11 +91,11 @@ namespace TVShowsWin.Providers
         /// </summary>
         /// <param name="mirror">The mirror of the show.</param>
         /// <returns>The episodes of the show</returns>
-        public IList<TVShowsEpisode> GetEpisodes(string mirror)
+        public async Task<IList<TVShowsEpisode>> GetEpisodes(string mirror)
         {
             List<TVShowsEpisode> episodes = new List<TVShowsEpisode>();
 
-            XDocument xmlDocument = XDocument.Load(mirror);
+            XDocument xmlDocument = await mirror.ToUri().GetXDocument();
 
             foreach (var element in xmlDocument.Descendants("item"))
             {

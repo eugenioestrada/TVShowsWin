@@ -62,7 +62,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cache\Generic\Cache.cs" />
+    <Compile Include="Extensions\AsyncExtensions.cs" />
     <Compile Include="Helpers\DispatcherHelper.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
