@@ -41,9 +41,14 @@ namespace TVShowsWin.Providers
         {
             string feed = this.GetShowFeed(showId);
             XDocument feedDocument = await feed.ToUri().GetXDocument();
+            TVDBShow show = null;
 
-            TVDBShow show = new TVDBShow();
-            show.Poster = this.GetBannerUrl(feedDocument.Descendants("poster").FirstOrDefault().Value);
+            if (feedDocument != null)
+            {
+                show = new TVDBShow();
+                show.Poster = this.GetBannerUrl(feedDocument.Descendants("poster").FirstOrDefault().Value);
+            }
+
             return show;
         }
 

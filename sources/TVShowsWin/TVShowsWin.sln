@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{B400C600-26CA-45DF-B444-4149C5D7C8CD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "Services\Services.csproj", "{5A88C76F-0B50-46B0-9D7C-973A0518BDA3}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C1091A7C-B76A-48FE-BFBA-9D787DAA1D43} = {C1091A7C-B76A-48FE-BFBA-9D787DAA1D43}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TVShowsApp", "TVShowsApp\TVShowsApp.csproj", "{5B463B7B-BA0A-49D7-B625-8376F6D54542}"
 EndProject

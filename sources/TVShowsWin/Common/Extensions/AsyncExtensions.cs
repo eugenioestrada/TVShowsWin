@@ -24,8 +24,15 @@ namespace TVShowsWin.Common.Extensions
         public static async Task<XDocument> GetXDocument(this Uri uri)
         {
             WebClient webClient = new WebClient();
-            string content = await webClient.DownloadStringTaskAsync(uri);
-            return XDocument.Parse(content);
+            try
+            {
+                string content = await webClient.DownloadStringTaskAsync(uri);
+                return XDocument.Parse(content);
+            }
+            catch (WebException)
+            {
+                return null;
+            }
         }
     }
 }
