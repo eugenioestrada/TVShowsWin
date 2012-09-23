@@ -40,7 +40,7 @@ namespace TVShowsWin.TVShowsApp
         private void VirtualizingStackPanel_MouseWheel_1(object sender, System.Windows.Input.MouseWheelEventArgs e)
         {
             VirtualizingStackPanel virtualizingStackPanel = sender as VirtualizingStackPanel;
-            virtualizingStackPanel.ScrollOwner.ScrollToHorizontalOffset(virtualizingStackPanel.ScrollOwner.HorizontalOffset + (e.Delta * 0.01));
+            virtualizingStackPanel.ScrollOwner.ScrollToHorizontalOffset(virtualizingStackPanel.ScrollOwner.HorizontalOffset - (e.Delta * 0.01));
         }
     }
 }
